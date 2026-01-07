@@ -1,4 +1,4 @@
-## Expense Tracker
+## Budget Board
 A simple and efficient web-based expense tracking application built with PHP to help you manage your personal finances.
 
 ## Features
