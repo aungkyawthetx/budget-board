@@ -20,9 +20,9 @@
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category Name</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Monthly Budget (Ks)</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Monthly Budget</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Expense Count</th>
                     <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                 </tr>
@@ -43,29 +43,37 @@
                     ];
                 ?>
 
-                <?php foreach($categories as $category): ?>
+                <?php if(count($categories) > 0): ?>
+                    <?php foreach($categories as $category): ?>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="shrink-0 h-10 w-10 rounded-full <?= $category_bg[$category['icon']] ?? 'bg-gray-100' ?> flex items-center justify-center">
+                                        <i class="fa-solid fa-<?= $category['icon'] ?>" style="color: <?= $category['color'] ?>"></i>
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900"> <?= $category['name'] ?? 'N/A' ?> </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"> <?= $category['description'] ?? 'N/A' ?> </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"> <?= number_format($category['monthly_budget'], 2) ?? 'N/A' ?> Ks</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"> <?= $expenseCounts[$category['id']] ?? 0 ?> </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <button onclick="openEditCategoryModal()" 
+                                    class="text-indigo-600 hover:text-indigo-900 mr-3 cursor-pointer" 
+                                    title="Edit Category">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
                     <tr>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="flex items-center">
-                                <div class="shrink-0 h-10 w-10 rounded-full <?= $category_bg[$category['icon']] ?? 'bg-gray-100' ?> flex items-center justify-center">
-                                    <i class="fa-solid fa-<?= $category['icon'] ?>" style="color: <?= $category['color'] ?>"></i>
-                                </div>
-                                <div class="ml-4">
-                                    <div class="text-sm font-medium text-gray-900"> <?= $category['name'] ?? 'N/A' ?> </div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"> <?= $category['description'] ?? 'N/A' ?> </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"> <?= number_format($category['monthly_budget']) ?? 'N/A' ?> Ks</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">42</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <button onclick="openEditCategoryModal()" class="text-indigo-600 hover:text-indigo-900 mr-3"><i class="fas fa-edit"></i></button>
-                            <button onclick="openDeleteCategoryModal()" class="text-red-600 hover:text-red-900"><i class="fas fa-trash"></i></button>
-                        </td>
+                        <td colspan="5" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center"> No categories found. </td>
                     </tr>
-                <?php endforeach; ?>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>
-    
 </div>
