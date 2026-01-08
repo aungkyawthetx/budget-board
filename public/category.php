@@ -5,9 +5,17 @@
   require_once __DIR__ . '/../src/bootstrap.php';
   $title = "Categories - BudgetBoard";
 
-  $sql = $pdo->prepare("SELECT * FROM categories");
-  $sql->execute();
-  $categories = $sql->fetchAll(PDO::FETCH_ASSOC);
+  $sql = "SELECT * FROM categories";
+  $params = [];
+  $search = $_GET['search'] ?? '';
+  if(!empty($search)) {
+    $sql .= " WHERE name LIKE :search OR description LIKE :search";
+    $params[':search'] = '%' . $search . '%';
+  }
+
+  $cat_stmt = $pdo->prepare($sql);
+  $cat_stmt->execute($params);
+  $categories = $cat_stmt->fetchAll(PDO::FETCH_ASSOC);
 
   // expense counts per category
   $stmt = $pdo->prepare("SELECT category_id, COUNT(*) AS total FROM expenses WHERE user_id = :user_id GROUP BY category_id");
