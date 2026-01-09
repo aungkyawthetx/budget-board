@@ -37,7 +37,7 @@ Composer (for dependency management)
 ## Installation
 Clone the repository
 
-git clone https://github.com/aungkyawth3t/expense-tracker.git
+git clone https://github.com/aungkyawthetx/budget-board.git
 cd expense-tracker
 Set up the database
 
