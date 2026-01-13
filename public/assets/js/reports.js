@@ -1,19 +1,3 @@
-// Initialize date picker
-flatpickr("#date-range", {
-  mode: "range",
-  dateFormat: "Y-m-d",
-});
-
-// Toggle custom date range visibility
-document.getElementById('report-period').addEventListener('change', function () {
-  const customRangeDiv = document.getElementById('custom-date-range');
-  if (this.value === 'custom') {
-    customRangeDiv.classList.remove('hidden');
-  } else {
-    customRangeDiv.classList.add('hidden');
-  }
-});
-
 // Expense Trend Chart
 const trendCtx = document.getElementById('expenseTrendChart').getContext('2d');
 const expenseTrendChart = new Chart(trendCtx, {

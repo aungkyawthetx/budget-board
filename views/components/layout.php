@@ -10,7 +10,9 @@ if (!isset($title)) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= htmlspecialchars($title) ?></title>
   <link rel="icon" type="image/png" href="../../public/assets/logo.png">
+  <link rel="preload" href="/public/assets/vendor/fonts/worksans/WorkSans-Regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="/src/output.css?v=<?= time() ?>">
+  <link rel="stylesheet" href="/src/input.css?v=<?= time() ?>">
   <!-- fontawesome -->
   <link rel="stylesheet" href="../../public/assets/vendor/fontawesome-free-7.1.0-web/css/all.min.css?v=<?= time() ?>">
   <!-- date picker -->
@@ -20,10 +22,6 @@ if (!isset($title)) {
   <script src="../../public/assets/vendor/chartjs/chart.umd.js"></script>
   <!-- sweetalert2 -->
   <script src="../../public/assets/vendor/sweetalert2/sweetalert2.all.min.js"></script>
-  <!-- google fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
   <div class="flex h-screen overflow-hidden">
@@ -53,7 +51,6 @@ if (!isset($title)) {
   </script>
   <!-- Common JS -->
   <script src="/public/assets/js/index.js"></script>
-  <script src="/public/assets/js/reports.js"></script>
   <script src="/public/assets/js/expenses.js"></script>
   <script src="/public/assets/js/categories.js"></script>
 </body>
