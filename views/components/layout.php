@@ -38,6 +38,8 @@ if (!isset($title)) {
     </div>
   </div>
 
+  
+
   <script>
     flatpickr("#date-range", {
       mode: "range",
