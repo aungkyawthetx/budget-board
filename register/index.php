@@ -63,12 +63,14 @@
         if (empty($errors)) {
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             // insert
-            $stmt = $pdo->prepare("INSERT INTO users(username, email, password) VALUES (?, ?, ?)");
+            $stmt = $pdo->prepare("INSERT INTO users(username, email, password, join_date) VALUES (?, ?, ?, ?)");
             $result = $stmt->execute([
                 $username,
                 $email,
-                $hashedPassword
+                $hashedPassword,
+                date('Y-m-d')
             ]);
+
             if ($result) {
                 $success = true;
                 $_SESSION['user_id'] = $pdo->lastInsertId();

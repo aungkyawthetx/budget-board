@@ -26,11 +26,11 @@
             <!-- dropdown menu -->
             <div id="user-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 focus:outline-none" role="menu">
                 <a href="profile.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-                    <i class="fas fa-user mr-2"></i> Profile
+                    <i class="fas fa-user mr-2"></i> Account
                 </a>
-                <a href="settings.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+                <!-- <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
                     <i class="fas fa-cog mr-2"></i> Settings
-                </a>
+                </a> -->
                 <div class="border-t border-gray-100"></div>
                 <button onclick="openLogoutModal()" class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer" role="menuitem">
                     <i class="fas fa-sign-out-alt mr-2"></i> Signout

@@ -1,7 +1,16 @@
 <?php
   include __DIR__ . '/../src/helpers/url.php';
   require_once __DIR__ . '/../src/helpers/isLoggedIn.php';
-  $title = "Profile";
+  require_once __DIR__ . '/../src/bootstrap.php';
+  $title = "Account";
+
+  // get login user
+  $user_id = $_SESSION['user_id'] ?? null;
+  $stmt = $pdo->prepare("SELECT * FROM users WHERE id = :user_id");
+  $stmt->execute([':user_id' => $user_id]);
+  $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+  $editMode = isset($_GET['edit']);
 
   ob_start();
 ?>

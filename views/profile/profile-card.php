@@ -1,50 +1,101 @@
-<div class="bg-white rounded-xl shadow-sm p-8">
-  <div class="flex flex-col lg:flex-row items-start lg:items-center gap-8">
-    <!-- Profile Image Section -->
-    <div class="shrink-0 text-center lg:text-left">
-      <div class="relative inline-block">
-        <img src="https://ui-avatars.com/api/?name=Admin+User&background=6366f1&color=fff&size=128" alt="Profile" class="w-32 h-32 rounded-full shadow-lg">
-      </div>
-      <div class="mt-4">
-        <h3 class="text-xl font-semibold text-gray-800"> <?= $_SESSION['user_name'] ?? 'Guest' ?> </h3>
-      </div>
-    </div>
-    
-    <!-- Profile Details Section -->
-    <form class="flex-1 w-full mt-2" action="" method="POST">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
-          <input type="text" value="<?= $_SESSION['user_name'] ?>" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors">
+<div class="bg-white rounded-xl shadow-sm p-6 md:p-8">
+  <?php 
+    if ($editMode):
+      include __DIR__ . '/edit.php';
+    else: 
+  ?>
+    <div class="flex flex-col lg:flex-row items-start gap-8">
+      <div class="shrink-0 text-center lg:text-left">
+        <div class="relative inline-block">
+          <img src="https://ui-avatars.com/api/?name=<?= urlencode($_SESSION['user_name'] ?? 'Guest') ?>&background=6366f1&color=fff&size=256&bold=true" 
+            alt="Profile picture of <?= htmlspecialchars($_SESSION['user_name'] ?? 'Guest') ?>"
+            class="w-40 h-40 rounded-full shadow-xl object-cover border-4 border-white ring-2 ring-indigo-100"
+            loading="lazy"
+          >
         </div>
-        <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
-          <input type="email" value="<?= $_SESSION['user_email'] ?>" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors">
+        
+        <!-- Edit Button - Desktop -->
+        <div class="mt-6 lg:block hidden">
+          <a href="<?= url('public/profile.php?edit') ?>" onclick="openEditModal()" class="w-full px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-all duration-200 font-medium flex items-center justify-center shadow-md hover:shadow-lg">
+            <i class="fas fa-edit mr-2"></i> Edit Profile
+          </a>
         </div>
-        <!-- <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-2">Phone</label>
-          <input type="text" value="+1 (555) 123-4567" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors">
-        </div> -->
-        <div class="md:col-span-2">
-          <label class="block text-sm font-semibold text-gray-700 mb-2">Bio</label>
-          <textarea rows="1" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-colors resize-none">Managing expenses and financial reports for the organization.</textarea>
-        </div>
-         <div>
-           <label class="block text-sm font-semibold text-gray-700 mb-2">Profile Image</label>
-           <div class="relative">
-             <input type="file" accept="image/*" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer">
-           </div>
-         </div>
       </div>
 
-      <div class="flex sm:flex-row justify-start mt-5 gap-4">
-        <button type="button" class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors font-medium cursor-pointer">
-          <i class="fas fa-times mr-2"></i> Cancel
-        </button>
-        <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium cursor-pointer">
-          <i class="fas fa-save mr-2"></i> Save
-        </button>
+      <!-- Profile Details -->
+      <div class="flex-1 w-full">
+        <div class="flex justify-between items-start mb-6">
+          <div>
+            <h2 class="text-2xl font-bold text-gray-800">Account Information</h2>
+            <p class="text-gray-600 text-sm mt-1">View and manage your account details</p>
+          </div>
+          
+          <a href="<?= url('public/profile.php?edit') ?>" class="lg:hidden px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium flex items-center justify-center shadow-sm">
+            <i class="fas fa-edit mr-2"></i> Edit
+          </a>
+        </div>
+        
+        <!-- Profile Information -->
+        <div class="space-y-6">
+          <div class="space-y-2">
+            <div class="flex items-center text-gray-500 text-sm font-medium">
+              <i class="fas fa-user-circle mr-2 text-indigo-500"></i>
+              Username
+            </div>
+            <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <p class="text-sm font-semibold text-gray-800">
+                <?= htmlspecialchars($user['username'] ?? 'Guest') ?>
+              </p>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="space-y-2">
+            <div class="flex items-center text-gray-500 text-sm font-medium">
+              <i class="fas fa-envelope mr-2 text-indigo-500"></i>
+              Email Address
+            </div>
+            <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <p class="text-sm font-semibold text-gray-800">
+                <?= htmlspecialchars($user['email'] ?? 'No email provided') ?>
+              </p>
+            </div>
+          </div>
+
+          <!-- Bio -->
+          <div class="space-y-2">
+            <div class="flex items-center text-gray-500 text-sm font-medium">
+              <i class="fas fa-info-circle mr-2 text-indigo-500"></i>
+              Bio
+            </div>
+            <div class="p-4 bg-gray-50 rounded-lg border border-gray-200 min-h-20">
+              <?php if (!empty($user['bio'])): ?>
+                <p class="text-sm text-gray-800">
+                  <?= htmlspecialchars($user['bio']) ?>
+                </p>
+              <?php else: ?>
+                <p class="text-gray-400 italic text-sm">
+                  No bio provided. Click "Edit Profile" to add a bio.
+                </p>
+              <?php endif; ?>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-6 border-t border-gray-200">
+            <div class="space-y-2">
+              <div class="flex items-center text-gray-500 text-sm">
+                <i class="far fa-calendar-alt mr-2 text-gray-400"></i>
+                Member Since
+              </div>
+              <div class="p-3 bg-gray-50 rounded-lg">
+                <p class="text-gray-700 font-medium">
+                  <?= date('F Y', strtotime($user['created_at'] ?? 'now')) ?>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </form>
-  </div>
+    </div>
+  <?php endif; ?>
 </div>
