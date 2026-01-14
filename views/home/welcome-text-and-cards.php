@@ -8,9 +8,9 @@
         <div class="flex items-center justify-between">
             <div>
                 <p class="text-gray-500 text-sm font-medium">Total Expenses</p>
-                <h3 class="text-2xl font-bold text-gray-800 mt-1"> 300,000 MMK</h3>
-                <p class="text-green-500 text-sm mt-2">
-                    <i class="fas fa-arrow-up mr-1"></i> 12% from last month
+                <h3 class="text-2xl font-bold text-gray-800 mt-1"> <?= number_format($totalExpenses, 2) ?> MMK</h3>
+                <p class="<?= $isUp ? 'text-red-500' : 'text-green-500' ?> text-sm mt-2">
+                    <i class="fas fa-arrow-<?= $isUp ? 'up' : 'down' ?>"></i> <?= number_format($percent, 0) ?>% from last month
                 </p>
             </div>
             <div class="bg-indigo-100 p-3 rounded-full">
