@@ -29,13 +29,9 @@
   $isUp = $totalExpenses >= $lastMonthTotal;
   $percent = $lastMonthTotal > 0 ? (($totalExpenses - $lastMonthTotal) / max($totalExpenses, $lastMonthTotal)) * 100 : 0;
 
-  // get total monthly budget
-  // $stmt = $pdo->prepare("
-  //   SELECT COALESCE(SUM(monthly_budget), 0) AS total_budget
-  //   FROM categories
-  //   WHERE user_id = :user_id");
-  // $stmt->execute([':user_id' => $_SESSION['user_id']]);
-  // $totalBudget = number_format($stmt->fetchColumn(), 2);
+  $stmt = $pdo->prepare("SELECT COUNT(*) FROM categories");
+  $stmt->execute();
+  $categoriesCount = $stmt->fetchColumn();
 
   ob_start();
   include __DIR__ . '/../views/home/welcome-text-and-cards.php';
